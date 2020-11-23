@@ -4,8 +4,6 @@ bin/
 project/
 target/
 build/
-dictionary/
-inverted_index/
 
 # intellij idea
 *.log
