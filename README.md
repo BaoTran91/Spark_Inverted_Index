@@ -1,8 +1,9 @@
-##Quick set-up and run.
+##Quick set-up and run with InteliJ.
 1) open project in InteliJ and allow sbt to build and get dependencies.
 2) run /src/main/libraries_index.scala file
+3) the dictionary will be writen out to the dictionary folder and the final index in the inverted index folder.
 
-##Through shell
+##Run through shell
 1) cd into home directory
 2) execute "sbt" to enter sbt shell
 3) execute "run" inside sbt shell to run spark job

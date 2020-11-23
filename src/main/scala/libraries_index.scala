@@ -33,7 +33,7 @@ object InvertedIndex {
        AND value NOT REGEXP "[0-9]+.*" -- No Numbers
        AND value NOT LIKE '%**%'
        AND value NOT LIKE '%--%'
-       AND trim(value) NOT LIKE '-%'
+       AND SUBSTRING('value',1,1) NOT REGEXP "[a-zA-Z]+.*"
        AND value NOT LIKE '%\_%'
        AND value NOT LIKE '%|%'
        AND value NOT LIKE '%>%'
@@ -73,7 +73,6 @@ object InvertedIndex {
       ON f.words = d.words
       ORDER BY word_id,document
     """)
-    agg_df.show()
 
     // Concatenated ARRAY TO WRITE AS CSV (Flat file.)
     // Can use array with other file type like parquet and ORC which are more optimal.
@@ -84,7 +83,6 @@ object InvertedIndex {
 //      .agg( array_sort(collect_list("document")).as("document")) // keeping as list.
       .orderBy("word_id")
 
-    final_df.show()
 
     final_df
       .repartition(1)
