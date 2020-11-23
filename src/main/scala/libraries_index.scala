@@ -26,14 +26,14 @@ object InvertedIndex {
 
 //    Create a data frame with the word and document id. Run some quick data cleansing.
     val file_df = spark.sql("""
-      SELECT DISTINCT REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(LOWER(TRIM(value)),'.',''),',',''),'"',''),'!',''),'?',''),':',''),';',''),'(',''),')',''),"'",''),'*',''),'[',''),"]",'') AS words,
-      filename document
+      SELECT DISTINCT REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(LOWER(TRIM(value)),'.',''),',',''),'"',''),'!',''),'?',''),':',''),';',''),'(',''),')',''),'/',''),"'",''),'*',''),'[',''),"]",'') AS words,
+      CAST(filename as int) document
        FROM words_df
        WHERE LOWER(TRIM(value)) REGEXP "[a-zA-Z]+.*" -- Have at least 1 letters
        AND value NOT REGEXP "[0-9]+.*" -- No Numbers
        AND value NOT LIKE '%**%'
        AND value NOT LIKE '%--%'
-       AND value NOT LIKE '-%'
+       AND trim(value) NOT LIKE '-%'
        AND value NOT LIKE '%\_%'
        AND value NOT LIKE '%|%'
        AND value NOT LIKE '%>%'
@@ -58,7 +58,7 @@ object InvertedIndex {
       .write.format("com.databricks.spark.csv")
       .option("header", "true")
       .option("delimiter","|")
-      .save("dictionary.csv")
+      .save("dictionary")
 
     dictionary.createOrReplaceTempView("dict")
 
@@ -91,6 +91,6 @@ object InvertedIndex {
       .write.format("com.databricks.spark.csv")
       .option("header", "true")
       .option("delimiter","|")
-      .save("inverted_index.csv")
+      .save("inverted_index")
   }
 }
