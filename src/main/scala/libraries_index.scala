@@ -33,7 +33,7 @@ object InvertedIndex {
        AND value NOT REGEXP "[0-9]+.*" -- No Numbers
        AND value NOT LIKE '%**%'
        AND value NOT LIKE '%--%'
-       AND SUBSTRING('value',1,1) NOT REGEXP "[a-zA-Z]+.*"
+       AND SUBSTRING(trim(value),1,1) REGEXP "[a-zA-Z]+.*"
        AND value NOT LIKE '%\_%'
        AND value NOT LIKE '%|%'
        AND value NOT LIKE '%>%'
