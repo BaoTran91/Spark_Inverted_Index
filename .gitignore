@@ -4,7 +4,6 @@ bin/
 project/
 target/
 build/
-dataset/
 dictionary.csv/
 inverted_index.csv/
 
