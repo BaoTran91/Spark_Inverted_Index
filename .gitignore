@@ -1,0 +1,28 @@
+# sbt
+# (may want to keep parts of 'project')
+bin/
+project/
+target/
+build/
+dataset/
+dictionary.csv/
+inverted_index.csv/
+
+# intellij idea
+*.log
+*.iml
+*.ipr
+*.iws
+.idea
+
+# mac
+.DS_Store
+
+# other?
+.history
+.scala_dependencies
+.cache
+.cache-main
+
+#general
+*.class
